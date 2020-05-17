@@ -9,6 +9,7 @@ public class main {
     public static void main (String[] args) {
 		CLI prog = new CLI();
 		
+		// Выходи в случае некорректного ввода размера панели
 		if (!prog.getInfo())
 		 	System.exit(-1);
 		

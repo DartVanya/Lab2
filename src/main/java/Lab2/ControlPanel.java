@@ -29,7 +29,7 @@ public class ControlPanel extends CLI {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
             	t = rand.nextInt(2);
-                if (t == 1) {
+                if (t == 1) { // Создаём бины для лампы или для кнопки
                 	items[i][j] = ctx.getBean("Lamp", item.class);
                 }
                 else {

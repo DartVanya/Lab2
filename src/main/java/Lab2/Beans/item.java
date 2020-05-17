@@ -1,7 +1,7 @@
 package Lab2.Beans;
 
 
-// Интерфейс состояний класса item
+// Интерфейс класса item
 public interface item {
 
 	public void print();
@@ -9,5 +9,3 @@ public interface item {
 	public boolean get_type();
 
 }
-
-

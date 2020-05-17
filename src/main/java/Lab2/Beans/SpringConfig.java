@@ -7,8 +7,7 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class SpringConfig {
     	
-	// Создаем бины принтеров
-	// @Bean - Замена <bean>...</bean>
+	// Создаем бины элементов
 
 	@Bean(name = "Lamp")
 	@Scope("prototype")

@@ -6,11 +6,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import Lab2.Beans.SpringConfig;
 
+// Интерфейс командной строки, взаимадействует с пользователем
 public class CLI {
 	private int N, M, x, y;
 	private Scanner in;
 	private AnnotationConfigApplicationContext ctx;
 	
+	// Получаем информацию о размере панели
 	public boolean getInfo() {
 	    in = new Scanner(System.in);
 	    System.out.println("Введите параметры панели: ");
@@ -23,6 +25,7 @@ public class CLI {
 	    return true;
 	}
 	
+	// Запускаем процесс взаимодействия с пользователем
 	public void start() {
 		ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
 		ControlPanel panel = new ControlPanel(M, N, ctx);
@@ -43,6 +46,7 @@ public class CLI {
         }
 	}
 	
+	// Завершаем работу
 	public void finish() {
 		System.out.println("Завершение работы программы...");
         ctx.close();
