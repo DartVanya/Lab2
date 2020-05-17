@@ -6,7 +6,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import Lab2.Beans.SpringConfig;
 
-// Интерфейс командной строки, взаимадействует с пользователем
+// Интерфейс командной строки, взаимодействует с пользователем
 public class CLI {
 	private int N, M, x, y;
 	private Scanner in;

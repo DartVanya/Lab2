@@ -1,7 +1,7 @@
 package Lab2.Beans;
 
 
-// Реализация состояния item для кнопки
+// Реализация методов item для кнопки
 public class Button implements item {
 
 	private String button;

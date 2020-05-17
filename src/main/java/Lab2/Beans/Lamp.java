@@ -2,7 +2,7 @@ package Lab2.Beans;
 
 import java.util.Random;
 
-//Реализация состояния item для лампы
+// Реализация методов item для лампы
 public class Lamp implements item {
 
 	private String color;
