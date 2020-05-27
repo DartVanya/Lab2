@@ -1,10 +1,11 @@
-package Lab2.Beans;
+package Lab3.Beans;
 
-import Lab2.ControlPanel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+
+import Lab3.ControlPanel;
 
 @Configuration
 @ComponentScan("Lab2.Beans")

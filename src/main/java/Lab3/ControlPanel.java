@@ -1,11 +1,11 @@
-package Lab2;
-
-import Lab2.Beans.*;
+package Lab3;
 
 import java.util.Random;
 import java.util.Vector;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import Lab3.Beans.*;
 
 // Класс, работающий с панелью, генерирует, печатает панель, осуществляет нажатие кнопки
 public class ControlPanel extends CLI implements Runnable {

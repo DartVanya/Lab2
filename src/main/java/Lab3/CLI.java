@@ -1,10 +1,10 @@
-package Lab2;
+package Lab3;
 
 import java.util.Scanner;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import Lab2.Beans.SpringConfig;
+import Lab3.Beans.SpringConfig;
 
 // Интерфейс командной строки, взаимодействует с пользователем
 public class CLI {
