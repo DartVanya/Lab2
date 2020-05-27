@@ -117,7 +117,7 @@ public class ControlPanel extends CLI implements Runnable {
 			// из цикла и завершаем работу потока
 			if (Thread.currentThread().isInterrupted()) break;
 			
-			// Осуществляем переключение случайной кнопки на панели
+			// Осуществляем переключение случайной кнопки на панели и выводим её на экран
 			if (Off)
 				r_bi = rand.nextInt(Butt_arr.size() - 1);
 			this.PressButton(Butt_arr.get(r_bi).x, Butt_arr.get(r_bi).y);

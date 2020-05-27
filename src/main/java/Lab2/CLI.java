@@ -71,8 +71,8 @@ public class CLI {
                  System.out.println("Вы ввели неправильные координаты! Введите ещё раз.");
                  continue;
              }
-             
-             panel.PressButton( M-1-y, x);
+             // Нажимаем кнопку и выводим панель
+             panel.PressButton(M-1-y, x);
              panel.print(); 
         }
 	}
