@@ -18,7 +18,7 @@ public class CLI {
 	private int Timeout = 2000;
 	
     // Конструктор по умолчанию
-    public CLI() {}
+	public CLI() {}
     
     // Конструктор с параметрами
 	public CLI (boolean AutoPress, int tout) {
