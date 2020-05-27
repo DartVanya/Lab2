@@ -17,10 +17,10 @@ public class CLI {
 	private boolean AutoButtonsPress = false;
 	private int Timeout = 2000;
 	
-    // Конструктор по умолчанию
+	// Конструктор по умолчанию
 	public CLI() {}
     
-    // Конструктор с параметрами
+	// Конструктор с параметрами
 	public CLI (boolean AutoPress, int tout) {
 		 AutoButtonsPress = AutoPress;
 		 Timeout = tout;
