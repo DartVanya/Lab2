@@ -7,7 +7,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class main {
 
     public static void main (String[] args) {
-		CLI prog = new CLI();
+    	// Создаём интерфейс: параметр1 - активация автопереключения,
+    	// 					  параметр2 - время автопереключения в мсек
+		CLI prog = new CLI(false, 2000);
 		
 		// Выход в случае некорректного ввода размера панели
 		if (!prog.getInfo())

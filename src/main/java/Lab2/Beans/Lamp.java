@@ -7,7 +7,7 @@ public class Lamp implements item {
 
 	private String color;
 	private String lamp;
-	private boolean turned;
+	private volatile boolean turned;
 	
 	// Инициализация
 	public Lamp() {

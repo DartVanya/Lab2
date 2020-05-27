@@ -8,21 +8,22 @@ import java.util.Vector;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 // Класс, работающий с панелью, генерирует, печатает панель, осуществляет нажатие кнопки
-public class ControlPanel extends CLI {
+public class ControlPanel extends CLI implements Runnable {
 
     private int N, M;
-   
     private item items[][];
     private Vector<Point> Lamp_arr = new Vector<Point>();
     private Vector<Point> Butt_arr = new Vector<Point>();
     private Vector<Vector<Integer>> but_to_lamp;
-
+    private Random rand = new Random();
+    private int Timeout;
+    
     // Конструктор панели
-    protected ControlPanel (int n, int m, AnnotationConfigApplicationContext ctx) {
+    protected ControlPanel (int n, int m, AnnotationConfigApplicationContext ctx, int tout) {
+    	Timeout = tout;
     	N = n; M = m;
         int pos;
         items = new item[N][M];
-    	Random rand = new Random();
     	int t;
     	
         // Генерируем панель, размещение кнопок и ламп случайно
@@ -105,6 +106,32 @@ public class ControlPanel extends CLI {
             items[temp.x][temp.y].swith(); // Включаем
     	}
     	items[X][Y].swith();
-    		
+    }
+    
+    // Метод работающий в потоке
+    public void run() {
+    	int r_bi = 0;
+    	boolean Off = true;
+		while(true) {
+			// Проверяем, был ли получен сигнал на прерывание потока, если да, то выходим
+			// из цикла и завершаем работу потока
+			if (Thread.currentThread().isInterrupted()) break;
+			
+			// Осуществляем переключение случайной кнопки на панели
+			if (Off)
+				r_bi = rand.nextInt(Butt_arr.size() - 1);
+			this.PressButton(Butt_arr.get(r_bi).x, Butt_arr.get(r_bi).y);
+			Off = !Off;
+			this.print();
+			System.out.println(this.info);
+			
+			try {
+				Thread.sleep(this.Timeout); // переключение выполняется раз в Timeout мсек
+			} catch (InterruptedException e) {
+				// Проверяем, был ли получен сигнал на прерывание потока, если да, то
+				//выходим из цикла и завершаем работу потока
+				break;
+			}
+		}
     }
 }
