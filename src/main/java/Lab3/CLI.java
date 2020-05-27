@@ -14,8 +14,8 @@ public class CLI {
 	private ControlPanel panel;
 	private Thread tr;
 	protected String info = "Команды: -1 - выход, -2 - переключить режим моргания панели\nНажмите кнопку:";
-    private boolean AutoButtonsPress = false;
-    private int Timeout = 2000;
+	private boolean AutoButtonsPress = false;
+	private int Timeout = 2000;
 	
     // Конструктор по умолчанию
     public CLI() {}
