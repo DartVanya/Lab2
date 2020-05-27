@@ -24,18 +24,16 @@ public class ControlPanel extends CLI implements Runnable {
     	N = n; M = m;
         int pos;
         items = new item[N][M];
-    	int t;
+    	boolean type;
     	
         // Генерируем панель, размещение кнопок и ламп случайно
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-            	t = rand.nextInt(2);
-                if (t == 1) { // Получаем бины для лампы или для кнопки
+            	type = rand.nextBoolean();
+                if (type) // Получаем бины для лампы или для кнопки
                 	items[i][j] = ctx.getBean("Lamp", item.class);
-                }
-                else {
+                else
                 	items[i][j] = ctx.getBean("Button", item.class);
-                }
             }
         }
         
@@ -56,7 +54,7 @@ public class ControlPanel extends CLI implements Runnable {
        but_to_lamp = new Vector<Vector<Integer>>(l_cnt);
         
         // Привязываем случайное число ламп к каждой кнопке, порядок случаен
-        for (int i = 0; i < b_cnt; i++) {
+        for (int i = 0; i < b_cnt && l_cnt > 0; i++) {
         	but_to_lamp.add(i, new Vector<Integer>());
         	pos = rand.nextInt(l_cnt); // случайное число ламп
             for (int r = 0; r < pos; r++) { // случайный порядок ламп
@@ -97,6 +95,10 @@ public class ControlPanel extends CLI implements Runnable {
     		 System.out.println("Ошибка! Это не кнопка! Введите заново!");
     		 return;
     	}
+    	else if(Lamp_arr.size() < 1) {
+    		items[X][Y].swith();
+			return;
+    	}
 
         int index;
         Point temp;
@@ -119,8 +121,11 @@ public class ControlPanel extends CLI implements Runnable {
 			
 			// Осуществляем переключение случайной кнопки на панели и выводим её на экран
 			if (Off)
-				r_bi = rand.nextInt(Butt_arr.size() - 1);
-			this.PressButton(Butt_arr.get(r_bi).x, Butt_arr.get(r_bi).y);
+				r_bi = Butt_arr.size() > 1 ? rand.nextInt(Butt_arr.size() - 1) : 0;
+			if (Butt_arr.size() > 0)
+				this.PressButton(Butt_arr.get(r_bi).x, Butt_arr.get(r_bi).y);
+			else
+				 System.out.println("Ошибка! Это не кнопка!");
 			Off = !Off;
 			this.print();
 			System.out.println(this.info);
