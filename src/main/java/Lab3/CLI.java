@@ -1,10 +1,11 @@
 package Lab3;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import Lab3.Beans.SpringConfig;
+
 
 // Интерфейс командной строки, взаимодействует с пользователем
 public class CLI {
@@ -12,7 +13,7 @@ public class CLI {
 	private Scanner in;
 	private AnnotationConfigApplicationContext ctx;
 	private ControlPanel panel;
-	private Thread tr;
+	private Thread tr1, tr2;
 	protected String info = "Команды: -1 - выход, -2 - переключить режим моргания панели\nНажмите кнопку:";
 	private boolean AutoButtonsPress = false;
 	private int Timeout = 2000;
@@ -39,6 +40,9 @@ public class CLI {
 	    return true;
 	}
 	
+	private List<Thread> lt = new ArrayList<>(); // 
+	private int n = 3; // количество запускаемых потоков
+	
 	// Запускаем процесс взаимодействия с пользователем
 	public void start() {
 		ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
@@ -46,10 +50,12 @@ public class CLI {
         System.out.println("Сгенерирована панель управления.");
         panel.print();
         
-        // Создаем новый поток и запускаем его, если включено автопереключение
+        // Создаем новые потоки и запускаем их, если включено автопереключение
         if (AutoButtonsPress) {
-        	tr = new Thread(panel);
-        	tr.start();
+			for (int i = 0; i < n; i++)
+				lt.add(new Thread(panel));
+			for (Thread thread : lt)
+				thread.start();
         }
         
         // Запрос данных у пользователя
@@ -79,20 +85,28 @@ public class CLI {
 	
 	// Метод переключения автонажатия
 	void SwitchAutoPress() {
-		 if (AutoButtonsPress) // прерываем поток, если он был активен
-			 tr.interrupt();
-		 else { // или создаём новый и запускаем
-			 tr = new Thread(panel);
-			 tr.start();
+		 if (AutoButtonsPress) { // прерываем потоки, если они былм активены
+			for (Thread thread : lt) 
+				thread.interrupt();
+		 } 
+		 else { // или создаём новые и запускаем
+			lt.clear();
+			for (int i = 0; i < n; i++) 
+				lt.add(new Thread(panel));
+			for (Thread thread : lt)
+				thread.start();
 		 }
 		 AutoButtonsPress = !AutoButtonsPress;
 		 System.out.println("Режим автопереключения " + (AutoButtonsPress ? "включен" : "выключен") + ". Ура!");
+		
 	}
 	
 	// Завершаем работу
 	public void finish() {
-        if (AutoButtonsPress)
-			tr.interrupt(); // завершаем поток по окончании выполнения программы
+        if (AutoButtonsPress) { // завершаем потоки по окончании выполнения программы
+			for (Thread thread : lt)
+				thread.interrupt();
+        }	 
 		ctx.close();
 		System.out.println("Завершение работы программы...");
 	}

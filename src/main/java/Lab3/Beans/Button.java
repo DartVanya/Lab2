@@ -4,8 +4,8 @@ package Lab3.Beans;
 // Реализация методов item для кнопки
 public class Button implements item {
 
-	private volatile String button;
-	private volatile boolean turned;
+	private String button;
+	private boolean turned;
 	
 	// Инициализация
 	public Button() {

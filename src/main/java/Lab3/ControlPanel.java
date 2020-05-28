@@ -2,6 +2,9 @@ package Lab3;
 
 import java.util.Random;
 import java.util.Vector;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -66,7 +69,7 @@ public class ControlPanel extends CLI implements Runnable {
     
     // Вывод панели на экран
     protected void print() {
-        for (int i = 0; i < N; i++) {
+    	for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
             	items[i][j].print();
             	if(j < M - 1)
@@ -86,9 +89,13 @@ public class ControlPanel extends CLI implements Runnable {
     	  }
     	  return -1;
     }
+   
     
     // Метод нажатия кнопки
     protected void PressButton(int X, int Y) {
+    	
+    	
+
     	// Получаем индекс кнопки по координатам
     	int res = this.get_index(Butt_arr, X, Y);
     	if(res == -1) {
@@ -110,33 +117,41 @@ public class ControlPanel extends CLI implements Runnable {
     	items[X][Y].swith();
     }
     
+	private final Semaphore sem = new Semaphore(1); // даём одно разрешение, если дать больше, то будет конфликт
+	// можешь попробовать поставить больше 1 и посмотреть, как ломается вывод
+    
     // Метод работающий в потоке
     public void run() {
     	int r_bi = 0;
     	boolean Off = true;
-		while(true) {
-			// Проверяем, был ли получен сигнал на прерывание потока, если да, то выходим
-			// из цикла и завершаем работу потока
-			if (Thread.currentThread().isInterrupted()) break;
-			
-			// Осуществляем переключение случайной кнопки на панели и выводим её на экран
-			if (Off)
-				r_bi = Butt_arr.size() > 1 ? rand.nextInt(Butt_arr.size() - 1) : 0;
-			if (Butt_arr.size() > 0)
-				this.PressButton(Butt_arr.get(r_bi).x, Butt_arr.get(r_bi).y);
-			else
-				 System.out.println("Ошибка! Это не кнопка!");
-			Off = !Off;
-			this.print();
-			System.out.println(this.info);
-			
-			try {
-				Thread.sleep(this.Timeout); // переключение выполняется раз в Timeout мсек
-			} catch (InterruptedException e) {
-				// Проверяем, был ли получен сигнал на прерывание потока, если да, то
-				//выходим из цикла и завершаем работу потока
-				break;
+		try {
+			sem.acquire();
+			while(true) {
+				if (Thread.currentThread().isInterrupted()) break;
+				// Осуществляем переключение случайной кнопки на панели и выводим её на экран
+				if (Off)
+					r_bi = Butt_arr.size() > 1 ? rand.nextInt(Butt_arr.size() - 1) : 0;
+				if (Butt_arr.size() > 0)
+					this.PressButton(Butt_arr.get(r_bi).x, Butt_arr.get(r_bi).y);
+				else
+					 System.out.println("Ошибка! Это не кнопка!");
+				Off = !Off;
+				Thread.sleep(1); // фикс, чтобы не баговал первый print()
+				this.print();
+				System.out.println(this.info);
+				
+				try {
+					Thread.sleep(this.Timeout); // переключение выполняется раз в Timeout мсек
+				} catch (InterruptedException e) { 
+					// System.out.println("Поток остановлен!");
+					break;
+				}
 			}
+			sem.release();
 		}
+		catch(InterruptedException e)
+        {
+			// System.out.println("Поток остановлен!");
+        }
     }
 }
