@@ -19,11 +19,9 @@ public class ControlPanel extends CLI implements Runnable {
     private Vector<Point> Butt_arr = new Vector<Point>();
     private Vector<Vector<Integer>> but_to_lamp;
     private Random rand = new Random();
-    private int Timeout;
     
     // Конструктор панели
-    protected ControlPanel (int n, int m, AnnotationConfigApplicationContext ctx, int tout) {
-    	Timeout = tout;
+    protected ControlPanel (int n, int m, AnnotationConfigApplicationContext ctx) {
     	N = n; M = m;
         int pos;
         items = new item[N][M];

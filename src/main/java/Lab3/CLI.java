@@ -15,7 +15,7 @@ public class CLI {
 	private ControlPanel panel;
 	protected String info = "Команды: -1 - выход, -2 - переключить режим моргания панели\nНажмите кнопку:";
 	private boolean AutoButtonsPress = false;
-	private int Timeout = 2000;
+	protected int Timeout = 2000;
 	
 	// Конструктор по умолчанию
 	public CLI() {}
@@ -45,7 +45,7 @@ public class CLI {
 	// Запускаем процесс взаимодействия с пользователем
 	public void start() {
 		ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
-		panel = new ControlPanel(M, N, ctx, Timeout);
+		panel = new ControlPanel(M, N, ctx);
         System.out.println("Сгенерирована панель управления.");
         panel.print();
         
