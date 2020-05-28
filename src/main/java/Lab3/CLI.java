@@ -40,7 +40,7 @@ public class CLI {
 	    return true;
 	}
 	
-	private List<Thread> lt = new ArrayList<>(); // 
+	private List<Thread> lt = new ArrayList<>();
 	private int n = 3; // количество запускаемых потоков
 	
 	// Запускаем процесс взаимодействия с пользователем
