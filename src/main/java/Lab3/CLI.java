@@ -13,7 +13,6 @@ public class CLI {
 	private Scanner in;
 	private AnnotationConfigApplicationContext ctx;
 	private ControlPanel panel;
-	private Thread tr1, tr2;
 	protected String info = "Команды: -1 - выход, -2 - переключить режим моргания панели\nНажмите кнопку:";
 	private boolean AutoButtonsPress = false;
 	private int Timeout = 2000;
