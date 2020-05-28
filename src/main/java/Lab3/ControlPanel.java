@@ -94,8 +94,6 @@ public class ControlPanel extends CLI implements Runnable {
     // Метод нажатия кнопки
     protected void PressButton(int X, int Y) {
     	
-    	
-
     	// Получаем индекс кнопки по координатам
     	int res = this.get_index(Butt_arr, X, Y);
     	if(res == -1) {
@@ -118,8 +116,8 @@ public class ControlPanel extends CLI implements Runnable {
     }
     
 	private final Semaphore sem = new Semaphore(1); // даём одно разрешение, если дать больше, то будет конфликт
-	// можешь попробовать поставить больше 1 и посмотреть, как ломается вывод
-    
+	// можно попробовать поставить больше 1 и посмотреть, как ломается вывод
+	
     // Метод работающий в потоке
     public void run() {
     	int r_bi = 0;
@@ -151,7 +149,7 @@ public class ControlPanel extends CLI implements Runnable {
 		}
 		catch(InterruptedException e)
         {
-			// System.out.println("Поток остановлен!");
+			  // System.out.println("Поток остановлен!");
         }
     }
 }
