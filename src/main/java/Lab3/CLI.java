@@ -97,7 +97,6 @@ public class CLI {
 		 }
 		 AutoButtonsPress = !AutoButtonsPress;
 		 System.out.println("Режим автопереключения " + (AutoButtonsPress ? "включен" : "выключен") + ". Ура!");
-		
 	}
 	
 	// Завершаем работу

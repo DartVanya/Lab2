@@ -130,7 +130,7 @@ public class ControlPanel extends CLI implements Runnable {
 				if (Butt_arr.size() > 0)
 					this.PressButton(Butt_arr.get(r_bi).x, Butt_arr.get(r_bi).y);
 				else
-					 System.out.println("Ошибка! Это не кнопка!");
+					System.out.println("Ошибка! Это не кнопка!");
 				Off = !Off;
 				Thread.sleep(1); // фикс, чтобы не баговал первый print()
 				this.print();
