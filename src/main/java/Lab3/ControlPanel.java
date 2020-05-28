@@ -23,8 +23,8 @@ public class ControlPanel extends CLI implements Runnable {
     // Конструктор панели
     protected ControlPanel (int n, int m, AnnotationConfigApplicationContext ctx) {
     	N = n; M = m;
-        int pos;
         items = new item[N][M];
+        int pos;
     	boolean type;
     	
         // Генерируем панель, размещение кнопок и ламп случайно
