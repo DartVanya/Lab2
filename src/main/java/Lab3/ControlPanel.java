@@ -52,7 +52,7 @@ public class ControlPanel extends CLI implements Runnable {
         int l_cnt = Lamp_arr.size();
         int b_cnt = Butt_arr.size();
         
-       but_to_lamp = new Vector<Vector<Integer>>(l_cnt);
+        but_to_lamp = new Vector<Vector<Integer>>(l_cnt);
         
         // Привязываем случайное число ламп к каждой кнопке, порядок случаен
         for (int i = 0; i < b_cnt && l_cnt > 0; i++) {
